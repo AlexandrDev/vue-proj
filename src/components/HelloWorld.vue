@@ -1,5 +1,5 @@
 <template>
-  <div class="helloWorld">
+  <div class="b-todo">
     <ul>
       <li v-for="(note, id) in notes" :key="id">
         <a href="javascript:;" class="remove" @click="deleteNote(note.id)">x</a>
@@ -18,7 +18,7 @@
 import { db } from "../db";
 
 export default {
-  name: "helloWorld",
+  name: "HelloWorld",
   data() {
     return {
       notes: [],
