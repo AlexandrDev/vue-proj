@@ -1,23 +1,26 @@
 <template>
   <div class="helloWorld">
+    
     <ul>
       <li v-for="(note, id) in notes" :key="id">
+        <a href="javascript:;" class="remove" @click="deleteNote(note.id)">x</a>
         {{ note.text }}
       </li>
     </ul>
-    <form @submit="addNote(text)">
+
+    <form @submit="addNote(text)" v-on:submit.prevent>
       <input v-model="text" placeholder="Enter note...">
       <button type="submit">Add</button>
     </form>
+
   </div>
 </template>
 
 <script>
 import { db } from "../db";
-// import { Timestamp } from '../db'
 
 export default {
-  name: "HelloWorld",
+  name: "helloWorld",
   data() {
     return {
       notes: [],
@@ -35,6 +38,11 @@ export default {
         text: text,
         date: new Date()
       })
+
+      this.text = '';
+    },
+    deleteNote(id) {
+      db.collection('notes').doc(id).delete()
     }
   }
 };
@@ -42,7 +50,14 @@ export default {
 
 
 <style>
+form {
+  text-align: left;
+}
 ul {
   text-align: left;
+  list-style-type: none;
+}
+.remove {
+  margin-right: 20px;
 }
 </style>
