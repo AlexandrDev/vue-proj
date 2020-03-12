@@ -1,6 +1,5 @@
 <template>
   <div class="helloWorld">
-    
     <ul>
       <li v-for="(note, id) in notes" :key="id">
         <a href="javascript:;" class="remove" @click="deleteNote(note.id)">x</a>
@@ -9,10 +8,9 @@
     </ul>
 
     <form @submit="addNote(text)" v-on:submit.prevent>
-      <input v-model="text" placeholder="Enter note...">
+      <input v-model="text" placeholder="Enter note..." />
       <button type="submit">Add</button>
     </form>
-
   </div>
 </template>
 
@@ -24,7 +22,7 @@ export default {
   data() {
     return {
       notes: [],
-      text: "",
+      text: ""
     };
   },
   firestore() {
@@ -34,20 +32,21 @@ export default {
   },
   methods: {
     addNote(text) {
-      db.collection("notes").add({ 
+      db.collection("notes").add({
         text: text,
         date: new Date()
-      })
+      });
 
-      this.text = '';
+      this.text = "";
     },
     deleteNote(id) {
-      db.collection('notes').doc(id).delete()
+      db.collection("notes")
+        .doc(id)
+        .delete();
     }
   }
 };
 </script>
-
 
 <style>
 form {
